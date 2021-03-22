@@ -9,23 +9,27 @@ let studentSpecs = mod.array;
 
 describe("GRADING TEST: ", function() {
 
-  it ("Correct number of passing specs", function() {
-     expect(studentSpecs.length).toEqual(13);
-     for (let i = 0; i < studentSpecs.length; i++)
-     {
-       expect(studentSpecs[i].status).toEqual("passed");
-       expect(studentSpecs[i].passedExpectations.length).toBeGreaterThanOrEqual(1);
-     }
-   });
+  it("Correct number of passing specs", function() {
+    expect(studentSpecs.length).toEqual(13);
+    for (let i = 0; i < studentSpecs.length; i++) {
+      expect(studentSpecs[i].status).toEqual("passed");
+      expect(studentSpecs[i].passedExpectations.length).toBeGreaterThanOrEqual(1);
+    }
+  });
 
-   it("Responds to TA message & commands", function() {
+// 1. line 35 response.name NOT message
+// 2. response.commands NOT results
+// 3. roverStatus not defined so can't read .chain
+// 4. line 38 calling for moved position but uses command check // same for line 41
+
+  it("Responds to TA message & commands", function() {
     let rover = new Rover(100);
     let commands = [
-       new Command('MOVE', 4321),
-       new Command('STATUS_CHECK'),
-       new Command('MODE_CHANGE', 'LOW_POWER'),
-       new Command('MOVE', 3579),
-       new Command('STATUS_CHECK')
+      new Command('MOVE', 4321),
+      new Command('STATUS_CHECK'),
+      new Command('MODE_CHANGE', 'LOW_POWER'),
+      new Command('MOVE', 3579),
+      new Command('STATUS_CHECK')
     ];
     let message = new Message('TA power', commands);
     let response = rover.receiveMessage(message);
@@ -37,6 +41,8 @@ describe("GRADING TEST: ", function() {
     expect(response.results[4].roverStatus.position).toEqual(4321);
     expect(response.results[4].roverStatus.mode).toEqual('LOW_POWER');
     expect(response.results[4].roverStatus.generatorWatts).toEqual(110);
-   });
+  });
+
+
 
 });
