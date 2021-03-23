@@ -17,8 +17,8 @@ describe("GRADING TEST: ", function() {
     }
   });
 
-// 1. line 35 response.name NOT message
-// 2. response.commands NOT results
+// 1. line 36 response.name NOT message
+// 2. response.commands NOT results lines 37-43
 // 3. roverStatus not defined so can't read .chain
 // 4. line 38 calling for moved position but uses command check // same for line 41
 
@@ -31,16 +31,16 @@ describe("GRADING TEST: ", function() {
       new Command('MOVE', 3579),
       new Command('STATUS_CHECK')
     ];
-    let message = new Message('TA power', commands);
+     let message = new Message('TA power', commands);
     let response = rover.receiveMessage(message);
-    expect(response.message).toEqual('TA power');
-    expect(response.results[0].completed).toBeTrue;
-    expect(response.results[1].roverStatus.position).toEqual(4321);
-    expect(response.results[2].completed).toBeTrue;
-    expect(response.results[3].completed).toBeFalse;
-    expect(response.results[4].roverStatus.position).toEqual(4321);
-    expect(response.results[4].roverStatus.mode).toEqual('LOW_POWER');
-    expect(response.results[4].roverStatus.generatorWatts).toEqual(110);
+    expect(response.name).toEqual('TA power');
+    expect(response.commands[0].completed).toBeTrue;
+    expect(response.commands[0].position).toEqual(4321);
+    expect(response.commands[2].completed).toBeTrue;
+    expect(response.commands[3].completed).toBeFalse;
+    expect(response.commands[0].position).toEqual(4321);
+    expect(response.commands[4].mode).toEqual('LOW_POWER');
+    expect(response.commands[4].generatorWatts).toEqual(110);
   });
 
 
